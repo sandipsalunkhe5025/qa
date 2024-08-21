@@ -1,0 +1,51 @@
+Supervised machine learning Supervised learning, also known as supervised machine learning, is defined by its use of labeled datasets to train algorithms to classify data or predict outcomes accurately. As input data is fed into the model, the model adjusts its weights until it has been fitted appropriately. This occurs as part of the cross validation process to ensure that the model avoids overfitting or underfitting. Supervised learning helps organizations solve a variety of real-world problems at scale, such as classifying spam in a separate folder from your inbox. Some methods used in supervised learning include neural networks, naïve bayes, linear regression, logistic regression, random forest, and support vector machine (SVM).
+
+Unsupervised machine learning
+Unsupervised learning, also known as unsupervised machine learning, uses machine learning algorithms to analyze and cluster unlabeled datasets. These algorithms discover hidden patterns or data groupings without the need for human intervention. This method’s ability to discover similarities and differences in information make it ideal for exploratory data analysis, cross-selling strategies, customer segmentation, and image and pattern recognition. It’s also used to reduce the number of features in a model through the process of dimensionality reduction. Principal component analysis (PCA) and singular value decomposition (SVD) are two common approaches for this. Other algorithms used in unsupervised learning include neural networks, k-means clustering, and probabilistic clustering methods.Semi-supervised learning Semi-supervised learning offers a happy medium between supervised and unsupervised learning. During training, it uses a smaller labeled data set to guide classification and feature extraction from a larger, unlabeled data set. Semi-supervised learning can solve the problem of not having enough labeled data for a supervised learning algorithm. It also helps if it’s too costly to label enough data.
+Neural networks: Neural networks simulate the way the human brain works, with a huge number of linked processing nodes. Neural networks are good at recognizing patterns and play an important role in applications including natural language translation, image recognition, speech recognition, and image creation. Linear regression: This algorithm is used to predict numerical values, based on a linear relationship between different values. For example, the technique could be used to predict house prices based on historical data for the area. Logistic regression: This supervised learning algorithm makes predictions for categorical response variables, such as“yes/no” answers to questions. It can be used for applications such as classifying spam and quality control on a production line.
+Clustering: Using unsupervised learning, clustering algorithms can identify patterns in data so that it can be grouped. Computers can help data scientists by identifying differences between data items that humans have overlooked.
+
+Decision trees: Decision trees can be used for both predicting numerical values (regression) and classifying data into categories. Decision trees use a branching sequence of linked decisions that can be represented with a tree diagram. One of the advantages of decision trees is that they are easy to validate and audit, unlike the black box of the neural network. Random forests: In a random forest, the machine learning algorithm predicts a value or category by combining the results from a number of decision trees.
+Speech recognition: It is also known as automatic speech recognition (ASR), computer speech recognition, or speech-to-text, and it is a capability which uses natural language processing (NLP) to translate human speech into a written format. Many mobile devices incorporate speech recognition into their systems to conduct voice search—e.g. Siri—or improve accessibility for texting.Fraud detection: Banks and other financial institutions can use machine learning to spot suspicious transactions. Supervised learning can train a model using information about known fraudulent transactions. Anomaly detection can identify transactions that look atypical and deserve further investigation
+Natural language processing (NLP) refers to the branch of computer science—and more specifically, the branch of artificial intelligence or AI—concerned with giving computers the ability to understand text and spoken words in much the same way human beings can.
+The NLTK includes libraries for many of the NLP tasks listed above, plus libraries for subtasks, such as sentence parsing, word segmentation, stemming and lemmatization (methods of trimming words down to their roots), and tokenization (for breaking phrases, sentences, paragraphs and passages into tokens that help the computer better understand the text). It also includes libraries for implementing capabilities such as semantic reasoning, the ability to reach logical conclusions based on facts extracted from text.
+ 
+
+ 
+
+
+
+'''''A Game of Thrones''''' is a role-playing game produced by Guardians of Order based on the ''A Song of Ice and Fire'' fantasy series by George R. R. Martin.
+
+==Description==
+The game is designed to be usable with two RPG systems: the d20 System and the Tri-Stat dX system. Two editions were made: a serial-numbered edition limited to 2500 copies, ; and a standard edition, . The limited edition is faux-leather bound with silver gilt pages and includes rules for both systems, and includes an interview with Martin. The standard edition contains only the d20 system rules. The book was created by Guardians of Order and released by Sword & Sorcery, a subsidiary of White Wolf Games.
+
+==Reception==
+The ''A Game of Thrones'' RPG (AGOT RPG) was nominated for several ENnie Awards and won 2006 awards for: Best Production (Silver), Best Game (Silver), and Best d20/OGL Product (Silver).
+
+==History==
+On 28 July 2006, Martin announced that he had received word from the head of Guardians of Order that the company was folding and that no further releases for the setting would take place. Martin expressed hope that the game may be salvaged by another company, though he also said that he was experiencing difficulty in trying to recover his intellectual property rights.
+
+On 7 March 2007 Martin wrote that he had regained control of his intellectual property rights and was "all square" with Guardians of Order. As part of their settlement, Mr. Martin received all remaining stock of the limited edition version of the RPG. No further information regarding the settlement was revealed, nor the status of other creditors' claims on the property.
+
+On 24 April 2007, it was on Martin's website that Green Ronin was producing a new line of ''A Song of Ice and Fire'' RPG products, unrelated to the earlier Guardians of Order effort. The Green Ronin game, titled ''A Song of Ice and Fire Roleplaying'' (''SIFRP''), went on sale on 10 March 2009: it uses a custom game system and does not contain rules from either the d20 or Tri-Stat dX systems.
+
+Issue 307 of ''Dragon'' magazine featured D20 content related to ''ASOIAF'', including stats for Tyrion Lannister, Sandor Clegane and other prominent characters; adventure hooks; and a brother of the Night's Watch prestige class.
+
+==See also==
+*A Game of Thrones (board game)
+*A Game of Thrones collectible card game
+
+==References==
+
+
+==External links==
+* RPG.net review
+
+
+
+
+
+
+
+

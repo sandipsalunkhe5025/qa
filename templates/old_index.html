@@ -1,0 +1,502 @@
+<!--with zip and text file -->
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>  -->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Question Answering System</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Upload a File</h1>-->
+<!--    <form id="uploadForm" method="POST" action="/upload" enctype="multipart/form-data">-->
+<!--        <label for="file">Upload a file:</label>-->
+<!--        <input type="file" id="file" name="file" required>-->
+<!--        <br><br>-->
+<!--        <button type="submit">Upload File</button>-->
+<!--    </form>-->
+
+<!--    <hr>-->
+
+<!--    <h1>Select a File</h1>-->
+<!--    <select id="fileDropdown">-->
+<!--        <option value="">Select a file</option>-->
+<!--    </select>-->
+
+<!--    <h2>File Content:</h2>-->
+<!--    <textarea id="fileContent" rows="12" cols="150" placeholder="File content will appear here...">{{ file_content }}</textarea>-->
+<!--    <div id="pageControls">-->
+<!--        <button id="prevPage" onclick="prevPage()">Previous Page</button>-->
+<!--        <button id="nextPage" onclick="nextPage()">Next Page</button>-->
+<!--    </div>-->
+
+<!--    <hr>-->
+
+<!--    <h1>Ask a Question</h1>-->
+
+<!--    <form id="questionForm">-->
+<!--        <label for="query">Enter your question:</label>-->
+<!--        <input type="text" id="query" name="query">-->
+<!--        <br><br>-->
+<!--        <button type="submit">Ask</button>-->
+<!--    </form>-->
+<!--        <h2>prediction </h2>-->
+<!--        <span> <b>ANSWER: </b> </span> <span id="prediction"> </span> <br>-->
+<!--        <span><b>Context related to ANS: </b></span> <span id="fileContents"> </span> <br>-->
+<!--        <span><b>score: </b></span> <span id="score"> </span> <br>-->
+
+<!--    <script>-->
+<!--        let pages = [];-->
+<!--        let currentPage = 0;-->
+
+<!--        async function fetchFileList() {-->
+<!--            try {-->
+<!--                const response = await fetch('/list-files');-->
+<!--                const files = await response.json();-->
+<!--                const dropdown = document.getElementById('fileDropdown');-->
+
+<!--                files.forEach(file => {-->
+<!--                    const option = document.createElement('option');-->
+<!--                    option.value = file.key;-->
+<!--                    option.textContent = file.key;-->
+<!--                    dropdown.appendChild(option);-->
+<!--                });-->
+<!--            } catch (error) {-->
+<!--                console.error('Error fetching file list:', error);-->
+<!--            }-->
+<!--        }-->
+
+<!--        async function fetchFileContent(fileKey) {-->
+<!--            try {-->
+<!--                const response = await fetch(`/file-content?key=${encodeURIComponent(fileKey)}`);-->
+<!--                const result = await response.json();-->
+<!--                if (response.ok) {-->
+<!--                    pages = result.content;-->
+<!--                    currentPage = 0;-->
+<!--                    displayPage();-->
+<!--                } else {-->
+<!--                    alert('Failed to fetch file content');-->
+<!--                }-->
+<!--            } catch (error) {-->
+<!--                alert('Error fetching file content');-->
+<!--                console.error('Error:', error);-->
+<!--            }-->
+<!--        }-->
+
+<!--        function displayPage() {-->
+<!--            if (pages.length > 0) {-->
+<!--                document.getElementById('fileContent').textContent = pages[currentPage];-->
+<!--            } else {-->
+<!--                document.getElementById('fileContent').textContent = '';-->
+<!--            }-->
+<!--            document.getElementById('prevPage').disabled = currentPage === 0;-->
+<!--            document.getElementById('nextPage').disabled = currentPage === pages.length - 1;-->
+<!--        }-->
+
+<!--        function prevPage() {-->
+<!--            if (currentPage > 0) {-->
+<!--                currentPage&#45;&#45;;-->
+<!--                displayPage();-->
+<!--            }-->
+<!--        }-->
+
+<!--        function nextPage() {-->
+<!--            if (currentPage < pages.length - 1) {-->
+<!--                currentPage++;-->
+<!--                displayPage();-->
+<!--            }-->
+<!--        }-->
+
+<!--        document.getElementById('fileDropdown').addEventListener('change', (e) => {-->
+<!--            const fileKey = e.target.value;-->
+<!--            if (fileKey) {-->
+<!--                fetchFileContent(fileKey);-->
+<!--            } else {-->
+<!--                document.getElementById('fileContent').textContent = '';-->
+<!--                pages = [];-->
+<!--            }-->
+<!--        });-->
+
+<!--        document.getElementById('uploadForm').addEventListener('submit', async (e) => {-->
+<!--            e.preventDefault();-->
+<!--            const form = e.target;-->
+<!--            const formData = new FormData(form);-->
+<!--            try {-->
+<!--                const response = await fetch(form.action, {-->
+<!--                    method: form.method,-->
+<!--                    body: formData-->
+<!--                });-->
+
+<!--                if (response.ok) {-->
+<!--                    const result = await response.json();-->
+<!--                    document.getElementById('fileDropdown').innerHTML = '<option value="">Select a file</option>';-->
+<!--                    fetchFileList();-->
+<!--                    document.getElementById('fileContent').textContent = result.file_content || '';-->
+<!--                } else {-->
+<!--                    const result = await response.json();-->
+<!--                    alert('Failed to upload file: ' + result.message);-->
+<!--                }-->
+<!--            } catch (error) {-->
+<!--                alert('Error uploading file');-->
+<!--                console.error('Error:', error);-->
+<!--            }-->
+<!--        });-->
+<!--         document.getElementById('questionForm').addEventListener('submit', async (e) => {-->
+<!--            e.preventDefault();-->
+<!--            const form = e.target;-->
+<!--            const formData = new FormData(form);-->
+<!--            try {-->
+<!--                const response = await fetch('/', {-->
+<!--                    method: 'POST',-->
+<!--                    body: formData,-->
+<!--                    headers: {-->
+<!--                        'X-Requested-With': 'XMLHttpRequest'-->
+<!--                    }-->
+<!--                });-->
+
+
+
+<!--&lt;!&ndash;                if (response.ok) {&ndash;&gt;-->
+<!--                    const result = await response.json();-->
+
+<!--console.log(result)-->
+<!--                    document.getElementById('prediction').textContent = result.prediction.answers[0].answer;-->
+<!--                    document.getElementById('fileContents').textContent = result.prediction.answers[0].context || '';-->
+<!--                    document.getElementById('score').textContent = (result.prediction.answers[0].score *  100).toFixed(2) +"%" || '';-->
+<!--&lt;!&ndash;                } else {&ndash;&gt;-->
+<!--&lt;!&ndash;                    alert('Failed to get prediction');&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--            } catch (error) {-->
+<!--                alert('Error getting prediction');-->
+<!--                console.error('Error:', error);-->
+<!--            }-->
+<!--        });-->
+<!--        fetchFileList();-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--with pdf, text and zip file -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Answering System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
+
+<!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap-theme.min.css" rel="stylesheet" >-->
+
+
+    <style>
+        #pageControls {
+            margin-top: 10px;
+        }
+        #fileContent {
+            width: 100%;
+            height: 300px;
+            white-space: pre-wrap;
+        }
+
+        .file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 12px;}
+        .file-upload .file-select{display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+        .file-upload .file-select .file-select-button{background:#dce4ec;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+        .file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+        .file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+        .file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+        .file-upload.active .file-select{border-color:#59bee7;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+        .file-upload.active .file-select .file-select-button{background:#59bee7;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+        .file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;left:0;opacity:0;filter:alpha(opacity=0);}
+        .file-upload .file-select.file-select-disabled{opacity:0.65;}
+        .file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+        .file-upload .file-select.file-select-disabled:hover .file-select-button{background:#dce4ec;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+        .file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+    </style>
+
+</head>
+<body>
+
+<!--    <h1>Upload a File</h1>-->
+<!--        <label for="file">Upload a file:</label>-->
+<!--        <input type="file" id="file" name="file" required>-->
+<!--        <br><br>-->
+
+    <form id="uploadForm" method="POST" action="/upload" enctype="multipart/form-data" class="container d-flex my-4">
+    <div class="file-upload col-md-4 mx-3">
+      <div class="file-select">
+        <div class="file-select-button" id="fileName">Choose File</div>
+        <div class="file-select-name" id="noFile">No file chosen...</div>
+        <input type="file" id="file" name="file">
+      </div>
+
+    </div>
+        <div class="col-md-2"> <button type="submit" class="btn btn-info">Upload File</button></div>
+    </form>
+<!--    <hr>-->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+            <div class="card">
+                <iframe class="card-img-top" src="{{ url_for('uploads', filename='deep112.pdf') }}" height="200"></iframe>
+                <div class="card-body ">
+                    <h5 class="card-title">PDF 1</h5>
+                  <div class="d-flex justify-content-around align-items-baseline" >
+                     <div><input type="checkbox" class="pdf-checkbox" data-filekey="deep112.pdf" id="checkbox1">
+                    <label for="checkbox1">Select</label></div>
+                    <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pdfModal1">View</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+            <div class="card">
+                <iframe class="card-img-top" src="{{ url_for('uploads', filename='MACHINE_LEARNINGR17A0534.pdf') }}" height="200"></iframe>
+                <div class="card-body">
+                    <h5 class="card-title">PDF 2</h5>
+                   <div class="d-flex justify-content-around align-items-baseline" >
+                     <div><input type="checkbox" class="pdf-checkbox" data-filekey="MACHINE_LEARNINGR17A0534.pdf" id="checkbox2">
+                    <label for="checkbox2">Select</label></div>
+                    <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pdfModal1">View</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Card 3 -->
+           <div class="col-md-4">
+            <div class="card">
+                <iframe class="card-img-top" src="{{ url_for('uploads', filename='history.txt') }}" height="200"></iframe>
+                <div class="card-body">
+                    <h5 class="card-title">Document 3 </h5>
+                   <div class="d-flex justify-content-around align-items-baseline" >
+                     <div><input type="checkbox" class="pdf-checkbox" data-filekey=" history.txt" id="checkbox3">
+                    <label for="checkbox3">Select</label></div>
+                    <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pdfModal1">View</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <!-- Modals for PDF Previews -->
+    <!-- Modal 1 -->
+    <div class="modal fade" id="pdfModal1" tabindex="-1" aria-labelledby="pdfModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pdfModalLabel1">PDF 1 Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ url_for('uploads', filename='deep112.pdf') }}" width="100%" height="500"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <h1>Select a File</h1>
+    <select id="fileDropdown" class="form-select">
+        <option value="">Select a file</option>
+    </select>
+
+
+   <div class="d-flex justify-content-center mt-5">
+       <div class="col-md-8">
+           <h2>File Content</h2>
+           <textarea id="fileContent" class=" bg-dark text-white" readonly></textarea>
+
+           <div id="pageControls">
+        <button id="prevPage" onclick="prevPage()">Previous Page</button>
+        <button id="nextPage" onclick="nextPage()">Next Page</button>
+    </div>
+       </div>
+   </div>
+
+<!--    <hr>-->
+    <div class="d-flex justify-content-center mt-5  " >
+         <div class="col-md-8 p-5 bg-light">
+        <h1>Ask a Question</h1>
+    <form id="questionForm">
+        <label for="query">Enter your question:
+        <input type="text" id="query" class="form-control" name="query"></label>
+        <br><br>
+        <button type="submit" class="btn btn-info btn-sm ">Ask Question</button>
+    </form>
+     <h2 class="mt-5">Prediction</h2>
+    <p><b>Answer:</b> <span id="prediction"></span></p>
+    <p><b>Context:</b> <span id="fileContents"></span></p>
+    <p><b>Score:</b> <span id="score"></span></p>
+    <p><b>content:</b> <span id ="content"></span></p>
+
+    </div>
+    </div>
+     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
+
+
+    <script>
+        let pages = [];
+        let currentPage = 0;
+
+        async function fetchFileList() {
+            try {
+                const response = await fetch('/list-files');
+                const files = await response.json();
+
+                console.log(files,'files')
+                const dropdown = document.getElementById('fileDropdown');
+
+                files.forEach(file => {
+                    const option = document.createElement('option');
+                    option.value = file.key;
+                    option.textContent = file.key;
+                    dropdown.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching file list:', error);
+            }
+        }
+
+
+        function displayPage() {
+            if (pages.length > 0) {
+                document.getElementById('fileContent').textContent = pages[currentPage];
+            } else {
+                document.getElementById('fileContent').textContent = '';
+            }
+            document.getElementById('prevPage').disabled = currentPage === 0;
+            document.getElementById('nextPage').disabled = currentPage === pages.length - 1;
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                displayPage();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                displayPage();
+            }
+        }
+
+<!--        document.getElementById('fileDropdown').addEventListener('change', (e) => {-->
+<!--            const fileKey = e.target.value;-->
+<!--            if (fileKey) {-->
+<!--                fetchFileContent(fileKey);-->
+<!--            } else {-->
+<!--                document.getElementById('fileContent').textContent = '';-->
+<!--                pages = [];-->
+<!--            }-->
+<!--        });-->
+
+
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent the default form submission
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: formData
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+<!--            document.getElementById('fileDropdown').innerHTML = '<option value="">Select a file</option>';-->
+            fetchFileList();
+            document.getElementById('fileContent').textContent = result.file_content || '';
+        } else {
+            const result = await response.json();
+            alert('Failed to upload file: ' + result.message);
+        }
+    } catch (error) {
+        alert('Error uploading file');
+        console.error('Error:', error);
+    }
+});
+
+
+        document.getElementById('questionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            try {
+                const response = await fetch('/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+                if (response.ok) {
+                    const result = await response.json();
+                    document.getElementById('prediction').textContent = result.prediction.answers[0].answer;
+                    document.getElementById('fileContents').textContent = result.prediction.answers[0].context || '';
+                    document.getElementById('score').textContent = (result.prediction.answers[0].score * 100).toFixed(2) + "%" || '';
+                    document.getElementById('content').textContent = result.prediction.documents[0].content;
+
+                } else {
+                    alert('Failed to get prediction');
+                }
+            } catch (error) {
+                alert('Error getting prediction');
+                console.error('Error:', error);
+            }
+        });
+        fetchFileList();
+
+
+        document.querySelectorAll('.pdf-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                // Uncheck all checkboxes except the current one
+                document.querySelectorAll('.pdf-checkbox').forEach(box => {
+                    if (box !== e.target) {
+                        box.checked = false;
+                    }
+                });
+
+                // Get the file key from the data attribute
+                const fileKey = e.target.dataset.filekey;
+
+                if (fileKey && e.target.checked) {
+                    // Call fetchFileContent with the file key
+                    fetchFileContent(fileKey);
+                } else {
+                    // If unchecked, clear the content
+                    document.getElementById('fileContent').textContent = '';
+                    pages = [];
+                }
+            });
+        });
+
+    </script>
+<script>
+    $('#file').bind('change', function () {
+  var filename = $("#file").val();
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen...");
+  }
+  else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+  }
+});
+</script>
+</body>
+</html>
